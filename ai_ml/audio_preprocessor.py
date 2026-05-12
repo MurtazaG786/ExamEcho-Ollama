@@ -78,7 +78,7 @@ class AudioPreprocessor:
     def __init__(self, config: Optional[AudioPreprocessorConfig] = None) -> None:
         self.config = config or AudioPreprocessorConfig()
 
-    # ── Public API ────────────────────────────────────────────────────────────
+    # Public API
 
     def preprocess_file(
         self,
@@ -131,7 +131,7 @@ class AudioPreprocessor:
 
         return PreprocessResult(audio=audio, sample_rate=sr, metadata=metadata, chunks=chunks)
 
-    # ── Private helpers ───────────────────────────────────────────────────────
+    # Private helpers
 
     def _convert_to_pcm_wav(self, input_path: str, output_path: Optional[str]) -> str:
         if output_path is None:

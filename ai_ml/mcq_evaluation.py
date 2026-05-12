@@ -20,7 +20,7 @@ from app.config import settings
 logger = logging.getLogger(__name__)
 
 
-# ── Output schema ─────────────────────────────────────────────────────────────
+# Output schema
 
 class MCQResult(BaseModel):
     """Result of a single MCQ evaluation."""
@@ -30,7 +30,7 @@ class MCQResult(BaseModel):
     inference: Literal["Correct Answer", "Incorrect Answer"]
 
 
-# ── Engine ────────────────────────────────────────────────────────────────────
+# Engine
 
 class MCQEvaluationEngine:
     """
@@ -89,7 +89,7 @@ class MCQEvaluationEngine:
         correct_label = self._extract_label(correct_option)
         selected_label = self._extract_label(selected_option)
 
-        # ── Fast path: label match ────────────────────────────────────────────
+        # Fast path: label match
         if correct_label and selected_label:
             match = correct_label == selected_label
             logger.debug(
@@ -104,7 +104,7 @@ class MCQEvaluationEngine:
                 inference="Correct Answer" if match else "Incorrect Answer",
             )
 
-        # ── Semantic similarity path ──────────────────────────────────────────
+        # Semantic similarity path
         model = self._get_model()
         emb_correct = model.encode(correct_option)
         emb_selected = model.encode(selected_option)

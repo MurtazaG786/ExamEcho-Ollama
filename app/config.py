@@ -13,27 +13,27 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    # ── Ollama (local LLM) ────────────────────────────────────────────────────
+    # Ollama (local LLM)
     OLLAMA_BASE_URL: str = "http://localhost:11434"
     OLLAMA_MODEL_NAME: str = "mistral:7b"
     OLLAMA_TEMPERATURE: float = 0.0
     OLLAMA_MAX_TOKENS: int = 2048
 
-    # ── Whisper ───────────────────────────────────────────────────────────────
+    # Whisper
     WHISPER_MODEL_SIZE: str = "base"          # tiny | base | small | medium | large
     STT_DEFAULT_MODEL: str = "whisper"        # whisper | hf
 
-    # ── MCQ Evaluation ────────────────────────────────────────────────────────
+    # MCQ Evaluation
     MCQ_EVAL_MODEL_NAME: str = "sentence-transformers/all-MiniLM-L6-v2"
     MCQ_SIMILARITY_THRESHOLD: float = 0.75
 
-    # ── TTS ───────────────────────────────────────────────────────────────────
+    # TTS
     TTS_AUDIO_DIR: str = "generated_audio"    # directory for temp TTS files
 
-    # ── CORS ──────────────────────────────────────────────────────────────────
+    # CORS
     CORS_ORIGINS: List[str] = ["*"]
 
-    # ── API ───────────────────────────────────────────────────────────────────
+    # API
     API_V1_PREFIX: str = "/api/v1"
     APP_TITLE: str = "ExamEcho AI Service"
     APP_VERSION: str = "2.0.0"

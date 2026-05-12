@@ -23,7 +23,7 @@ from app.utils.json_utils import extract_json
 logger = logging.getLogger(__name__)
 
 
-# ── Pydantic schema for LLM output ───────────────────────────────────────────
+# Pydantic schema for LLM output
 
 class EvalResult(BaseModel):
     """Validated structure for a single evaluation response."""
@@ -53,7 +53,7 @@ class EvalResult(BaseModel):
         return [str(item) for item in v]
 
 
-# ── Evaluation engine ─────────────────────────────────────────────────────────
+# Evaluation engine
 
 _EVAL_TEMPLATE = """\
 [INST]

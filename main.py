@@ -26,7 +26,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.core.state import app_state
 
-# ── Logging setup ─────────────────────────────────────────────────────────────
+# Logging setup
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s  %(levelname)-8s  %(name)s  %(message)s",
@@ -36,7 +36,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-# ── Lifespan: load all heavy models ONCE at startup ───────────────────────────
+# Lifespan: load all heavy models ONCE at startup
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -56,7 +56,7 @@ async def lifespan(app: FastAPI):
     logger.info("  Whisper size: %s", settings.WHISPER_MODEL_SIZE)
     logger.info("=" * 60)
 
-    # ── Whisper STT ──────────────────────────────────────────────────────────
+    # Whisper STT
     try:
         from ai_ml.model_creator import WhisperModelLoader
         app_state.whisper_model = WhisperModelLoader.get_model()
@@ -65,7 +65,7 @@ async def lifespan(app: FastAPI):
         logger.error("✗ Whisper model failed to load: %s", exc)
         logger.warning("  STT endpoints will not be functional.")
 
-    # ── Ollama LLM ───────────────────────────────────────────────────────────
+    # Ollama LLM
     try:
         from ai_ml.model_creator import OllamaModelLoader
         app_state.ollama_model = OllamaModelLoader.get_model()
@@ -83,7 +83,7 @@ async def lifespan(app: FastAPI):
             settings.OLLAMA_MODEL_NAME,
         )
 
-    # ── SentenceTransformer (MCQ evaluation) ─────────────────────────────────
+    # SentenceTransformer (MCQ evaluation)
     try:
         from sentence_transformers import SentenceTransformer
         logger.info("Loading SentenceTransformer '%s' …", settings.MCQ_EVAL_MODEL_NAME)
@@ -93,7 +93,7 @@ async def lifespan(app: FastAPI):
         logger.error("✗ SentenceTransformer failed to load: %s", exc)
         logger.warning("  MCQ evaluation endpoints will not be functional.")
 
-    # ── Summary ──────────────────────────────────────────────────────────────
+    # Summary
     if app_state.is_ready:
         logger.info("✓ All models loaded — service is fully ready.")
     else:
@@ -115,7 +115,7 @@ async def lifespan(app: FastAPI):
     logger.info("Shutting down ExamEcho AI Service.")
 
 
-# ── FastAPI app ───────────────────────────────────────────────────────────────
+# FastAPI app
 
 app = FastAPI(
     title=settings.APP_TITLE,
@@ -126,7 +126,7 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# ── CORS ──────────────────────────────────────────────────────────────────────
+# CORS
 
 app.add_middleware(
     CORSMiddleware,
@@ -136,7 +136,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ── Routers ───────────────────────────────────────────────────────────────────
+# Routers
 
 from app.routers import (  # noqa: E402
     evaluation,
@@ -158,7 +158,7 @@ for router in [
     app.include_router(router, prefix=settings.API_V1_PREFIX)
 
 
-# ── Health check ──────────────────────────────────────────────────────────────
+# Health check
 
 @app.get(
     "/health",

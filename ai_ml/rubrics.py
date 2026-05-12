@@ -21,7 +21,7 @@ from app.utils.json_utils import extract_json
 logger = logging.getLogger(__name__)
 
 
-# ── Output schema ─────────────────────────────────────────────────────────────
+# Output schema
 
 class RubricsResult(BaseModel):
     """Validated rubric list for a single question."""
@@ -40,7 +40,7 @@ class RubricsResult(BaseModel):
         return cleaned
 
 
-# ── Prompt ────────────────────────────────────────────────────────────────────
+# Prompt
 
 _RUBRICS_TEMPLATE = """\
 [INST]

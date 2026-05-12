@@ -36,12 +36,12 @@ def extract_json(text: str) -> dict:
     Raises:
         ValueError: If no valid JSON can be extracted after all repair attempts.
     """
-    # ── Step 1: strip markdown fences ────────────────────────────────────────
+    # Step 1: strip markdown fences
     text = text.strip()
     text = re.sub(r"```json\s*", "", text)
     text = re.sub(r"```\s*", "", text)
 
-    # ── Step 2: locate the JSON block ─────────────────────────────────────────
+    # Step 2: locate the JSON block
     json_match = re.search(r"(\{.*\})", text, re.DOTALL) or re.search(
         r"(\[.*\])", text, re.DOTALL
     )
@@ -50,13 +50,13 @@ def extract_json(text: str) -> dict:
 
     json_str = json_match.group(1).strip()
 
-    # ── Step 3: direct parse ──────────────────────────────────────────────────
+    # Step 3: direct parse
     try:
         return json.loads(json_str)
     except JSONDecodeError:
         pass
 
-    # ── Step 4: apply common repairs ─────────────────────────────────────────
+    # Step 4: apply common repairs
     fixed = json_str
 
     # single-quoted string values  →  double-quoted

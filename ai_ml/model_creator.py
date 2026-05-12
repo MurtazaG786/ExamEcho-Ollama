@@ -26,7 +26,7 @@ from ai_ml.exceptions import ModelLoadError, OllamaConnectionError
 logger = logging.getLogger(__name__)
 
 
-# ── Optional torch (GPU detection for Whisper) ───────────────────────────────
+# Optional torch (GPU detection for Whisper)
 try:
     import torch as _torch
     _TORCH_AVAILABLE = True
@@ -42,7 +42,7 @@ def _default_device() -> str:
     return "cpu"
 
 
-# ── Ollama health / model probe ───────────────────────────────────────────────
+# Ollama health / model probe
 
 def check_ollama_server(base_url: str | None = None) -> bool:
     """
@@ -126,7 +126,7 @@ def check_ollama_model(model_name: str | None = None, base_url: str | None = Non
     )
 
 
-# ── Whisper ───────────────────────────────────────────────────────────────────
+# Whisper
 
 class WhisperModelLoader:
     """
@@ -162,7 +162,7 @@ class WhisperModelLoader:
         return cls._instance
 
 
-# ── Ollama ────────────────────────────────────────────────────────────────────
+# Ollama
 
 class OllamaModelLoader:
     """

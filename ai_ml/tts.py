@@ -33,7 +33,7 @@ from ai_ml.exceptions import EngineError, TextSourceError, TTSError
 logger = logging.getLogger(__name__)
 
 
-# ── Config ────────────────────────────────────────────────────────────────────
+# Config
 
 @dataclass
 class TTSConfig:
@@ -54,7 +54,7 @@ class TTSConfig:
     return_bytes: bool = False
 
 
-# ── Text sources ──────────────────────────────────────────────────────────────
+# Text sources
 
 class TextSource(ABC):
     """Abstract provider for the text to be synthesised."""
@@ -93,7 +93,7 @@ class FileTextSource(TextSource):
         return text
 
 
-# ── Engines ───────────────────────────────────────────────────────────────────
+# Engines
 
 class TTSEngine(ABC):
     """Abstract TTS synthesis backend."""
@@ -128,7 +128,7 @@ class GTTSEngine(TTSEngine):
             logger.debug("TTS: generated %d bytes for '%s…'", buf.tell(), text[:40])
             return buf.getvalue()
 
-        # ── file output path ──────────────────────────────────────────────────
+        # file output path
         if not config.output_file:
             raise EngineError("output_file must be set when return_bytes=False.")
 
@@ -144,7 +144,7 @@ class GTTSEngine(TTSEngine):
         return output
 
 
-# ── Pipeline ──────────────────────────────────────────────────────────────────
+# Pipeline
 
 class TTSPipeline:
     """

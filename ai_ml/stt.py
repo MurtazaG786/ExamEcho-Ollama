@@ -51,7 +51,7 @@ class STT:
         self.model = model.lower()
         self.audio_file_path = audio_file_path
 
-    # ── High-level convenience ────────────────────────────────────────────────
+    # High-level convenience
 
     @staticmethod
     def transcribe_with_model(model, audio_path: str, lang: str = "en") -> str:
@@ -111,7 +111,7 @@ class STT:
             return self._whisper_transcribe()
         return self._hf_transcribe()
 
-    # ── Private backends ──────────────────────────────────────────────────────
+    # Private backends
 
     def _whisper_transcribe(self) -> str:
         whisper_model = WhisperModelLoader.get_model()
